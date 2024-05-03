@@ -1,8 +1,8 @@
 import { useState } from "react";
 import sample from "lodash/sample";
 
-import { useTicketsAtomValue } from "../ticketsAtom.ts";
-import { useSetRollerAtom } from "./rollerAtom.ts";
+import { useSetTicketsAtom, useTicketsAtomValue } from "../ticketsAtom.ts";
+import { useRollerAtomValue, useSetRollerAtom } from "./rollerAtom.ts";
 import { RollerState } from "./constants.ts";
 import { useSetEnablePlayerAtom } from "../player/enablePlayerAtom.ts";
 
@@ -10,7 +10,10 @@ export const useRoller = () => {
   const [state, setState] = useState<RollerState>(RollerState.Stopped);
   const [intervalId, setIntervalId] = useState<NodeJS.Timeout>();
 
+  const currentRoller = useRollerAtomValue();
   const tickets = useTicketsAtomValue();
+
+  const setTickets = useSetTicketsAtom();
   const setRoller = useSetRollerAtom();
   const setEnablePlayer = useSetEnablePlayerAtom();
 
@@ -45,6 +48,7 @@ export const useRoller = () => {
   const remove = () => {
     setEnablePlayer(false);
     setRoller("GDLUCK");
+    setTickets((tickets) => tickets.filter((t) => t.ref !== currentRoller));
   };
 
   return {
