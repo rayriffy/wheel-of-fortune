@@ -36,7 +36,9 @@ export const useRoller = () => {
     setState(RollerState.Stopping);
     if (intervalId) clearInterval(intervalId);
 
-    for await (const timeoutof of [100, 150, 215, 315, 420, 550, 600]) {
+    for await (const timeoutof of [
+      100, 101, 102, 104, 110, 120, 150, 215, 315, 400, 420, 550, 600,
+    ]) {
       await new Promise((resolve) => setTimeout(resolve, timeoutof));
       random();
     }
