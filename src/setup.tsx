@@ -17,7 +17,6 @@ export const Setup = () => {
       skipEmptyLines: true,
       complete: (result) => {
         const items: Ticket[] = result.data
-          .filter((d) => d["Used at"] !== "")
           .map((d) => ({
             ref: d["Reference code"],
             name: d.Firstname,
